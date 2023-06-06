@@ -11,10 +11,11 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
-import { useSelector, useDispatch } from "react-redux";
-import { bindActionCreators } from "redux";
 import SearchableDropdown from "react-native-searchable-dropdown";
-import { SliderBox } from "react-native-image-slider-box";
+// TODO: Replace the following library:
+// import { SliderBox } from "react-native-image-slider-box";
+// import { useSelector, useDispatch } from "react-redux";
+// import { bindActionCreators } from "redux";
 
 import cartIcon from "../../assets/icons/cart_beg.png";
 import scanIcon from "../../assets/icons/scan_icons.png";
@@ -23,7 +24,7 @@ import { colors } from "../../constants";
 import CustomIconButton from "../../components/CustomIconButton/CustomIconButton";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import { network } from "../../constants";
-import * as actionCreaters from "../../states/actionCreaters/actionCreaters";
+// import * as actionCreaters from "../../states/actionCreaters/actionCreaters";
 
 const category = [
   {
@@ -54,10 +55,11 @@ const slides = [
 ];
 
 const HomeScreen = ({ navigation, route }) => {
-  const cartproduct = useSelector((state) => state.product);
-  const dispatch = useDispatch();
+  const cartproduct = [];
+  // const cartproduct = useSelector((state) => state.product);
+  // const dispatch = useDispatch();
 
-  const { addCartItem } = bindActionCreators(actionCreaters, dispatch);
+  // const { addCartItem } = bindActionCreators(actionCreaters, dispatch);
 
   const { user } = route.params;
   const [products, setProducts] = useState([]);
@@ -82,7 +84,7 @@ const HomeScreen = ({ navigation, route }) => {
 
   //method to add to cart (redux)
   const handleAddToCat = (product) => {
-    addCartItem(product);
+    // addCartItem(product);
   };
 
   var headerOptions = {
@@ -203,14 +205,14 @@ const HomeScreen = ({ navigation, route }) => {
         </View>
         <ScrollView nestedScrollEnabled={true}>
           <View style={styles.promotiomSliderContainer}>
-            <SliderBox
+            {/* <SliderBox
               images={slides}
               sliderBoxHeight={140}
               dotColor={colors.primary}
               inactiveDotColor={colors.muted}
               paginationBoxVerticalPadding={10}
               autoplayInterval={6000}
-            />
+            /> */}
           </View>
           <View style={styles.primaryTextContainer}>
             <Text style={styles.primaryText}>Categories</Text>

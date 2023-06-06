@@ -18,8 +18,10 @@
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",
     "react-native": "0.71.8",
+    "react-native-image-slider-box": "^2.0.7",
     "react-native-internet-connection-alert": "^0.1.9",
-    "react-native-progress-dialog": "^0.0.5"
+    "react-native-progress-dialog": "^0.0.5",
+    "react-native-searchable-dropdown": "^1.1.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

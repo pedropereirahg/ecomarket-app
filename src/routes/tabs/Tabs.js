@@ -5,9 +5,9 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { colors } from "../../constants";
 import HomeScreen from "../../screens/user/HomeScreen";
-import UserProfileScreen from "../../screens/profile/UserProfileScreen";
-import MyOrderScreen from "../../screens/user/MyOrderScreen";
-import CategoriesScreen from "../../screens/user/CategoriesScreen";
+// import UserProfileScreen from "../../screens/profile/UserProfileScreen";
+// import MyOrderScreen from "../../screens/user/MyOrderScreen";
+// import CategoriesScreen from "../../screens/user/CategoriesScreen";
 import HomeIconActive from "../../assets/icons/bar_home_icon_active.png";
 import HomeIcon from "../../assets/icons/bar_home_icon.png";
 import userIcon from "../../assets/icons/bar_profile_icon.png";
@@ -114,7 +114,7 @@ const Tabs = ({ navigation, route }) => {
           },
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="categories"
         component={CategoriesScreen}
         initialParams={{ user: user }}
@@ -124,20 +124,20 @@ const Tabs = ({ navigation, route }) => {
             position: "absolute",
           },
         }}
-      />
+      /> */}
       {
         // Wishlist is ready yet!
-        <Tab.Screen
-          name="myorder"
-          component={MyOrderScreen}
-          initialParams={{ user: user }}
-        />
+        // <Tab.Screen
+        //   name="myorder"
+        //   component={MyOrderScreen}
+        //   initialParams={{ user: user }}
+        // />
       }
-      <Tab.Screen
+      {/* <Tab.Screen
         name="user"
         component={UserProfileScreen}
         initialParams={{ user: user }}
-      />
+      /> */}
     </Tab.Navigator>
   );
 };

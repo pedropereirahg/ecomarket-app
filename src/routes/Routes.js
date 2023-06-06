@@ -1,19 +1,20 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-
 import Splash from "../screens/auth/Splash";
 import LoginScreen from "../screens/auth/LoginScreen";
 import SignupScreen from "../screens/auth/SignupScreen";
 import ForgetPasswordScreen from "../screens/auth/ForgetPasswordScreen";
-// import Tabs from "./tabs/Tabs";
+import Tabs from "./tabs/Tabs";
+// import MyOrderScreen from "../screens/user/MyOrderScreen";
+
 // import UpdatePasswordScreen from "../screens/profile/UpdatePasswordScreen";
 // import MyAccountScreen from "../screens/profile/MyAccountScreen";
 // import CartScreen from "../screens/user/CartScreen";
 // import CheckoutScreen from "../screens/user/CheckoutScreen.js";
 // import OrderConfirmScreen from "../screens/user/OrderConfirmScreen";
 // import ProductDetailScreen from "../screens/user/ProductDetailScreen";
-// import MyOrderScreen from "../screens/user/MyOrderScreen";
+
 // import MyOrderDetailScreen from "../screens/user/MyOrderDetailScreen";
 // import MyWishlistScreen from "../screens/profile/MyWishlistScreen";
 
@@ -43,6 +44,7 @@ const Routes = () => {
         <Stack.Screen name="signup" component={SignupScreen} />
         <Stack.Screen name="forgetpassword" component={ForgetPasswordScreen} />
         <Stack.Screen name="tab" component={Tabs} />
+        {/* <Stack.Screen name="myorder" component={MyOrderScreen} /> */}
         {/* <Stack.Screen name="updatepassword" component={UpdatePasswordScreen} /> */}
         {/* <Stack.Screen name="myaccount" component={MyAccountScreen} /> */}
         {/* <Stack.Screen name="mywishlist" component={MyWishlistScreen} /> */}
@@ -50,7 +52,7 @@ const Routes = () => {
         {/* <Stack.Screen name="checkout" component={CheckoutScreen} /> */}
         {/* <Stack.Screen name="orderconfirm" component={OrderConfirmScreen} /> */}
         {/* <Stack.Screen name="productdetail" component={ProductDetailScreen} /> */}
-        {/* <Stack.Screen name="myorder" component={MyOrderScreen} /> */}
+
         {/* <Stack.Screen name="myorderdetail" component={MyOrderDetailScreen} /> */}
 
         {/* <Stack.Screen
