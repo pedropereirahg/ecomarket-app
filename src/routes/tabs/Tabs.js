@@ -126,18 +126,17 @@ const Tabs = ({ navigation, route }) => {
         }}
       /> */}
       {
-        //Wishlist is ready yet!
         <Tab.Screen
           name="myorder"
           component={MyOrderScreen}
           initialParams={{ user: user }}
         />
       }
-      {/* <Tab.Screen
+      <Tab.Screen
         name="user"
         component={UserProfileScreen}
         initialParams={{ user: user }}
-      /> */}
+      />
     </Tab.Navigator>
   );
 };
