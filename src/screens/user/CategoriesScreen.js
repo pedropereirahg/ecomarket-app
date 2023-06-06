@@ -15,8 +15,8 @@ import { Ionicons } from "@expo/vector-icons";
 import cartIcon from "../../assets/icons/cart_beg.png";
 import emptyBox from "../../assets/image/emptybox.png";
 import { colors, network } from "../../constants";
-import { useSelector, useDispatch } from "react-redux";
-import { bindActionCreators } from "redux";
+// import { useSelector, useDispatch } from "react-redux";
+// import { bindActionCreators } from "redux";
 import * as actionCreaters from "../../states/actionCreaters/actionCreaters";
 import CustomIconButton from "../../components/CustomIconButton/CustomIconButton";
 import ProductCard from "../../components/ProductCard/ProductCard";
@@ -40,10 +40,11 @@ const CategoriesScreen = ({ navigation, route }) => {
   const windowHeight = Dimensions.get("window").height;
 
   //initialize the cartproduct with redux data
-  const cartproduct = useSelector((state) => state.product);
-  const dispatch = useDispatch();
+  // const cartproduct = useSelector((state) => state.product);
+  const cartproduct = [];
+  // const dispatch = useDispatch();
 
-  const { addCartItem } = bindActionCreators(actionCreaters, dispatch);
+  // const { addCartItem } = bindActionCreators(actionCreaters, dispatch);
 
   //method to navigate to product detail screen of specific product
   const handleProductPress = (product) => {
@@ -52,7 +53,7 @@ const CategoriesScreen = ({ navigation, route }) => {
 
   //method to add the product to cart (redux)
   const handleAddToCat = (product) => {
-    addCartItem(product);
+    // addCartItem(product);
   };
 
   //method call on pull refresh
