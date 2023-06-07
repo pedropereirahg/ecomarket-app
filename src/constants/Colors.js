@@ -1,6 +1,6 @@
 export default colors = {
-  primary: "#FB6831",
-  primary_light: "#FFC8B2",
+  primary: "#64A646",
+  primary_light: "#90BF6F",
   primary_shadow: "#FB6A04",
   secondary: "#31C4FB",
   tertiary: "#AEE8FD",

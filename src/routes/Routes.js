@@ -10,23 +10,12 @@ import Tabs from "./tabs/Tabs";
 import MyAccountScreen from "../screens/profile/MyAccountScreen";
 import ProductDetailScreen from "../screens/user/ProductDetailScreen";
 import CartScreen from "../screens/user/CartScreen";
+import CheckoutScreen from "../screens/user/CheckoutScreen.js";
+import OrderConfirmScreen from "../screens/user/OrderConfirmScreen";
+
 // import MyOrderScreen from "../screens/user/MyOrderScreen";
-// import CheckoutScreen from "../screens/user/CheckoutScreen.js";
-// import OrderConfirmScreen from "../screens/user/OrderConfirmScreen";
-
 // import MyOrderDetailScreen from "../screens/user/MyOrderDetailScreen";
-
-// import AddProductScreen from "../screens/admin/AddProductScreen";
-// import DashboardScreen from "../screens/admin/DashboardScreen";
-// import ViewProductScreen from "../screens/admin/ViewProductScreen";
-// import EditProductScreen from "../screens/admin/EditProductScreen";
-// import ViewOrdersScreen from "../screens/admin/ViewOrdersScreen";
-// import ViewOrderDetailScreen from "../screens/admin/ViewOrderDetailScreen";
-// import ViewCategoryScreen from "../screens/admin/ViewCategoryScreen";
-// import AddCategoryScreen from "../screens/admin/AddCategoryScreen";
-// import ViewUsersScreen from "../screens/admin/ViewUsersScreen";
 // import CategoriesScreen from "../screens/user/CategoriesScreen";
-// import EditCategoryScreen from "../screens/admin/EditCategoryScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -35,7 +24,7 @@ const Routes = () => {
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="splash"
-        screenOptions={{ headerShown: false }}
+        screenOptions={{ headerShown: true, title: "" }}
       >
         <Stack.Screen name="splash" component={Splash} />
         <Stack.Screen name="login" component={LoginScreen} />
@@ -46,9 +35,10 @@ const Routes = () => {
         <Stack.Screen name="myaccount" component={MyAccountScreen} />
         <Stack.Screen name="productdetail" component={ProductDetailScreen} />
         <Stack.Screen name="cart" component={CartScreen} />
+        <Stack.Screen name="checkout" component={CheckoutScreen} />
+        <Stack.Screen name="orderconfirm" component={OrderConfirmScreen} />
+
         {/* <Stack.Screen name="myorder" component={MyOrderScreen} /> */}
-        {/* <Stack.Screen name="checkout" component={CheckoutScreen} /> */}
-        {/* <Stack.Screen name="orderconfirm" component={OrderConfirmScreen} /> */}
 
         {/* <Stack.Screen name="myorderdetail" component={MyOrderDetailScreen} /> */}
 
@@ -56,15 +46,6 @@ const Routes = () => {
           name="vieworderdetails"
           component={ViewOrderDetailScreen}
         /> */}
-        {/* <Stack.Screen name="dashboard" component={DashboardScreen} /> */}
-        {/* <Stack.Screen name="addproduct" component={AddProductScreen} /> */}
-        {/* <Stack.Screen name="viewproduct" component={ViewProductScreen} /> */}
-        {/* <Stack.Screen name="editproduct" component={EditProductScreen} /> */}
-        {/* <Stack.Screen name="vieworder" component={ViewOrdersScreen} /> */}
-        {/* <Stack.Screen name="viewcategories" component={ViewCategoryScreen} /> */}
-        {/* <Stack.Screen name="addcategories" component={AddCategoryScreen} /> */}
-        {/* <Stack.Screen name="editcategories" component={EditCategoryScreen} /> */}
-        {/* <Stack.Screen name="viewusers" component={ViewUsersScreen} /> */}
         {/* <Stack.Screen name="categories" component={CategoriesScreen} /> */}
       </Stack.Navigator>
     </NavigationContainer>

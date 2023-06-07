@@ -8,12 +8,12 @@ import {
   RefreshControl,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import { colors, network } from "../../constants";
+import { colors } from "../../constants";
 import { Ionicons } from "@expo/vector-icons";
 import CustomAlert from "../../components/CustomAlert/CustomAlert";
 import ProgressDialog from "react-native-progress-dialog";
 import OrderList from "../../components/OrderList/OrderList";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import CartButton from "../../components/CartButton";
 
 const MyOrderScreen = ({ navigation, route }) => {
   const { user } = route.params;
@@ -25,12 +25,6 @@ const MyOrderScreen = ({ navigation, route }) => {
   const [orders, setOrders] = useState([]);
   const [UserInfo, setUserInfo] = useState({});
 
-  //method to remove the authUser from aysnc storage and navigate to login
-  const logout = async () => {
-    await AsyncStorage.removeItem("authUser");
-    navigation.replace("login");
-  };
-
   //method to convert the authUser to json object
   const convertToJSON = (obj) => {
     try {
@@ -38,17 +32,6 @@ const MyOrderScreen = ({ navigation, route }) => {
     } catch (e) {
       setUserInfo(obj);
     }
-  };
-
-  //method to convert the authUser to json object and return token
-  const getToken = (obj) => {
-    try {
-      setUserInfo(JSON.parse(obj));
-    } catch (e) {
-      setUserInfo(obj);
-      return user.token;
-    }
-    return UserInfo.token;
   };
 
   //method call on pull refresh
@@ -86,33 +69,6 @@ const MyOrderScreen = ({ navigation, route }) => {
     };
     const newOrders = [defaultOrder];
     setOrders(newOrders);
-    // var myHeaders = new Headers();
-    // let token = getToken(user);
-    // myHeaders.append("x-auth-token", token);
-
-    // var requestOptions = {
-    //   method: "GET",
-    //   headers: myHeaders,
-    //   redirect: "follow",
-    // };
-    // setIsloading(true);
-    // fetch(`${network.serverip}/orders`, requestOptions)
-    //   .then((response) => response.json())
-    //   .then((result) => {
-    //     if (result?.err === "jwt expired") {
-    //       logout();
-    //     }
-    //     if (result.success) {
-    //       setOrders(result.data);
-    //       setError("");
-    //     }
-    //     setIsloading(false);
-    //   })
-    //   .catch((error) => {
-    //     setIsloading(false);
-    //     setError(error.message);
-    //     console.log("error", error);
-    //   });
   };
 
   //convert authUser to Json object and fetch orders on initial render
@@ -138,9 +94,7 @@ const MyOrderScreen = ({ navigation, route }) => {
           />
         </TouchableOpacity>
         <View></View>
-        <TouchableOpacity onPress={() => handleOnRefresh()}>
-          <Ionicons name="cart-outline" size={30} color={colors.primary} />
-        </TouchableOpacity>
+        <CartButton />
       </View>
       <View style={styles.screenNameContainer}>
         <View>

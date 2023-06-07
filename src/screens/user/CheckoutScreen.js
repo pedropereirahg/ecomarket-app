@@ -10,7 +10,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState, useEffect } from "react";
 import BasicProductList from "../../components/BasicProductList/BasicProductList";
-import { colors, network } from "../../constants";
+import { colors } from "../../constants";
 import CustomButton from "../../components/CustomButton";
 import { useSelector, useDispatch } from "react-redux";
 import * as actionCreaters from "../../states/actionCreaters/actionCreaters";
@@ -33,26 +33,24 @@ const CheckoutScreen = ({ navigation, route }) => {
   const [city, setCity] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [zipcode, setZipcode] = useState("");
+  const [user, setUser] = useState({ email: "" });
 
-  //method to remove the authUser from aysnc storage and navigate to login
-  const logout = async () => {
-    await AsyncStorage.removeItem("authUser");
-    navigation.replace("login");
+  const getUser = async () => {
+    const response = await AsyncStorage.getItem("authUser");
+    return JSON.parse(response);
+  };
+
+  const initUser = async () => {
+    const newUser = await getUser();
+    setUser(newUser);
   };
 
   //method to handle checkout
   const handleCheckout = async () => {
     setIsloading(true);
-    var myHeaders = new Headers();
-    const value = await AsyncStorage.getItem("authUser");
-    let user = JSON.parse(value);
-    console.log("Checkout:", user.token);
 
-    myHeaders.append("x-auth-token", user.token);
-    myHeaders.append("Content-Type", "application/json");
-
-    var payload = [];
-    var totalamount = 0;
+    let payload = [];
+    let totalamount = 0;
 
     // fetch the cart items from redux and set the total cost
     cartproduct.forEach((product) => {
@@ -65,47 +63,13 @@ const CheckoutScreen = ({ navigation, route }) => {
       payload.push(obj);
     });
 
-    var raw = JSON.stringify({
-      items: payload,
-      amount: totalamount,
-      discount: 0,
-      payment_type: "cod",
-      country: country,
-      status: "pending",
-      city: city,
-      zipcode: zipcode,
-      shippingAddress: streetAddress,
-    });
-
-    var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    };
-
-    fetch(network.serverip + "/checkout", requestOptions) //API call
-      .then((response) => response.json())
-      .then((result) => {
-        console.log("Checkout=>", result);
-        if (result.err === "jwt expired") {
-          setIsloading(false);
-          logout();
-        }
-        if (result.success == true) {
-          setIsloading(false);
-          emptyCart("empty");
-          navigation.replace("orderconfirm");
-        }
-      })
-      .catch((error) => {
-        setIsloading(false);
-        console.log("error", error);
-      });
+    setIsloading(false);
+    navigation.replace("orderconfirm");
   };
 
   // set the address and total cost on initital render
   useEffect(() => {
+    initUser();
     if (streetAddress && city && country != "") {
       setAddress(`${streetAddress}, ${city},${country}`);
     } else {
@@ -173,13 +137,7 @@ const CheckoutScreen = ({ navigation, route }) => {
         <View style={styles.listContainer}>
           <View style={styles.list}>
             <Text style={styles.secondaryTextSm}>Email</Text>
-            <Text style={styles.secondaryTextSm}>
-              bukhtyar.haider1@gmail.com
-            </Text>
-          </View>
-          <View style={styles.list}>
-            <Text style={styles.secondaryTextSm}>Phone</Text>
-            <Text style={styles.secondaryTextSm}>+92 3410988683</Text>
+            <Text style={styles.secondaryTextSm}>{user.email}</Text>
           </View>
         </View>
         <Text style={styles.primaryText}>Address</Text>

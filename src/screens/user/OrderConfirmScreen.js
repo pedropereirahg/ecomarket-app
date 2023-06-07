@@ -1,8 +1,9 @@
 import { StyleSheet, Image, Text, View, StatusBar } from "react-native";
 import React, { useEffect, useState } from "react";
-import SuccessImage from "../../assets/image/success.png";
 import CustomButton from "../../components/CustomButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Ionicons } from "@expo/vector-icons";
+import { colors } from "../../constants";
 
 const OrderConfirmScreen = ({ navigation }) => {
   const [user, setUser] = useState({});
@@ -21,10 +22,13 @@ const OrderConfirmScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <StatusBar></StatusBar>
-      <View style={styles.imageConatiner}>
-        <Image source={SuccessImage} style={styles.Image} />
+      <View style={styles.imageContainer}>
+        <Ionicons
+          style={{ fontSize: 128, color: colors.primary }}
+          name="checkmark-circle"
+        />
       </View>
-      <Text style={styles.secondaryText}>Order has be confirmed</Text>
+      <Text style={styles.secondaryText}>Your order was confirmed! :)</Text>
       <View>
         <CustomButton
           text={"Back to Home"}
@@ -47,8 +51,12 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
     flex: 1,
   },
-  imageConatiner: {
+  imageContainer: {
     width: "100%",
+    height: "40%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   Image: {
     width: 400,

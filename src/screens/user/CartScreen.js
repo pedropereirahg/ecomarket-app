@@ -12,7 +12,7 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import { colors, network } from "../../constants";
+import { colors } from "../../constants";
 import cartIcon from "../../assets/icons/cart_beg_active.png";
 import emptyBox from "../../assets/image/empty_box.png";
 import CartProductList from "../../components/CartProductList/CartProductList";

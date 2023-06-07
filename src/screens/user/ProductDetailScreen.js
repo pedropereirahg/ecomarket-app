@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
-import cartIcon from "../../assets/icons/cart_beg.png";
 import { colors, network } from "../../constants";
 import CustomButton from "../../components/CustomButton";
 import { useSelector, useDispatch } from "react-redux";
@@ -16,8 +15,14 @@ import { bindActionCreators } from "redux";
 import * as actionCreaters from "../../states/actionCreaters/actionCreaters";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CustomAlert from "../../components/CustomAlert/CustomAlert";
+import CartButton from "../../components/CartButton";
 
-const ProductDetailScreen = ({ navigation, route: { params: { product } } }) => {
+const ProductDetailScreen = ({
+  navigation,
+  route: {
+    params: { product },
+  },
+}) => {
   const [availableQuantity, setAvailableQuantity] = useState(0);
   const [quantity, setQuantity] = useState(0);
   const [productImage, SetProductImage] = useState(" ");
@@ -78,19 +83,8 @@ const ProductDetailScreen = ({ navigation, route: { params: { product } } }) => 
         </TouchableOpacity>
 
         <View></View>
-        <TouchableOpacity
-          style={styles.cartIconContainer}
-          onPress={() => navigation.navigate("cart")}
-        >
-          {cartproduct.length > 0 ? (
-            <View style={styles.cartItemCountContainer}>
-              <Text style={styles.cartItemCountText}>{cartproduct.length}</Text>
-            </View>
-          ) : (
-            <></>
-          )}
-          <Image source={cartIcon} />
-        </TouchableOpacity>
+
+        <CartButton productsQuantity={cartproduct.length} />
       </View>
       <View style={styles.bodyContainer}>
         <View style={styles.productImageContainer}>
@@ -337,28 +331,5 @@ const styles = StyleSheet.create({
   counterCountText: {
     fontSize: 20,
     fontWeight: "bold",
-  },
-  cartIconContainer: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  cartItemCountContainer: {
-    position: "absolute",
-    zIndex: 10,
-    top: -10,
-    left: 10,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: 22,
-    width: 22,
-    backgroundColor: colors.danger,
-    borderRadius: 11,
-  },
-  cartItemCountText: {
-    color: colors.white,
-    fontWeight: "bold",
-    fontSize: 10,
   },
 });
