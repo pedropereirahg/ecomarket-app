@@ -18,7 +18,6 @@ import header_logo from "../../assets/logo/logo.png";
 import CustomButton from "../../components/CustomButton";
 import CustomAlert from "../../components/CustomAlert/CustomAlert";
 
-
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -118,7 +117,7 @@ const LoginScreen = ({ navigation }) => {
           <StatusBar></StatusBar>
           <View style={styles.welconeContainer}>
             <View>
-              <Text style={styles.welcomeText}>Welcome to EasyBuy</Text>
+              <Text style={styles.welcomeText}>Welcome to EcoMarket</Text>
               <Text style={styles.welcomeParagraph}>
                 make your ecommerce easy
               </Text>

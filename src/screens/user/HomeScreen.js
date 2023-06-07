@@ -92,7 +92,7 @@ const HomeScreen = ({
         </TouchableOpacity>
         <View style={styles.topbarlogoContainer}>
           <Image source={easybuylogo} style={styles.logo} />
-          <Text style={styles.toBarText}>EasyBuy</Text>
+          <Text style={styles.toBarText}>EcoMarket</Text>
         </View>
 
         <CartButton />
