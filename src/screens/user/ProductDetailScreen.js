@@ -11,22 +11,23 @@ import { Ionicons } from "@expo/vector-icons";
 import cartIcon from "../../assets/icons/cart_beg.png";
 import { colors, network } from "../../constants";
 import CustomButton from "../../components/CustomButton";
-import { useSelector, useDispatch } from "react-redux";
-import { bindActionCreators } from "redux";
+// import { useSelector, useDispatch } from "react-redux";
+// import { bindActionCreators } from "redux";
 import * as actionCreaters from "../../states/actionCreaters/actionCreaters";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CustomAlert from "../../components/CustomAlert/CustomAlert";
 
 const ProductDetailScreen = ({ navigation, route }) => {
   const { product } = route.params;
-  const cartproduct = useSelector((state) => state.product);
-  const dispatch = useDispatch();
+  // const cartproduct = useSelector((state) => state.product);
+  const cartproduct = [];
+  // const dispatch = useDispatch();
 
-  const { addCartItem } = bindActionCreators(actionCreaters, dispatch);
+  // const { addCartItem } = bindActionCreators(actionCreaters, dispatch);
 
   //method to add item to cart(redux)
   const handleAddToCat = (item) => {
-    addCartItem(item);
+    // addCartItem(item);
   };
 
   //remove the authUser from async storage and navigate to login
@@ -34,53 +35,12 @@ const ProductDetailScreen = ({ navigation, route }) => {
     await AsyncStorage.removeItem("authUser");
     navigation.replace("login");
   };
-
-  const [onWishlist, setOnWishlist] = useState(false);
   const [avaiableQuantity, setAvaiableQuantity] = useState(0);
   const [quantity, setQuantity] = useState(0);
   const [productImage, SetProductImage] = useState(" ");
-  const [wishlistItems, setWishlistItems] = useState([]);
   const [error, setError] = useState("");
   const [isDisable, setIsDisbale] = useState(true);
   const [alertType, setAlertType] = useState("error");
-
-  //method to fetch wishlist from server using API call
-  const fetchWishlist = async () => {
-    const value = await AsyncStorage.getItem("authUser"); // get authUser from async storage
-    let user = JSON.parse(value);
-    var myHeaders = new Headers();
-    myHeaders.append("x-auth-token", user.token);
-
-    var requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-      redirect: "follow",
-    };
-    fetch(`${network.serverip}/wishlist`, requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        if (result?.err === "jwt expired") {
-          logout();
-        }
-        if (result.success) {
-          setWishlistItems(result.data[0].wishlist);
-          setIsDisbale(false);
-
-          //check if the current active product is already in wishlish or not
-          result.data[0].wishlist.map((item) => {
-            if (item?.productId?._id === product?._id) {
-              setOnWishlist(true);
-            }
-          });
-
-          setError("");
-        }
-      })
-      .catch((error) => {
-        setError(error.message);
-        console.log("error", error);
-      });
-  };
 
   //method to increase the product quantity
   const handleIncreaseButton = (quantity) => {
@@ -96,98 +56,12 @@ const ProductDetailScreen = ({ navigation, route }) => {
     }
   };
 
-  //method to add or remove item from wishlist
-  const handleWishlistBtn = async () => {
-    setIsDisbale(true);
-    const value = await AsyncStorage.getItem("authUser");
-    let user = JSON.parse(value);
-
-    if (onWishlist) {
-      var myHeaders = new Headers();
-      myHeaders.append("x-auth-token", user.token);
-
-      var requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-        redirect: "follow",
-      };
-
-      //API call to remove a item in wishlish
-      fetch(
-        `${network.serverip}/remove-from-wishlist?id=${product?._id}`,
-        requestOptions
-      )
-        .then((response) => response.json())
-        .then((result) => {
-          if (result.success) {
-            setError(result.message);
-            setAlertType("success");
-            setOnWishlist(false);
-          } else {
-            setError(result.message);
-            setAlertType("error");
-          }
-          setOnWishlist(!onWishlist);
-        })
-        .catch((error) => {
-          setError(result.message);
-          setAlertType("error");
-          console.log("error", error);
-        });
-      setIsDisbale(false);
-    } else {
-      var myHeaders2 = new Headers();
-      myHeaders2.append("x-auth-token", user.token);
-      myHeaders2.append("Content-Type", "application/json");
-
-      var raw2 = JSON.stringify({
-        productId: product?._id,
-        quantity: 1,
-      });
-
-      var addrequestOptions = {
-        method: "POST",
-        headers: myHeaders2,
-        body: raw2,
-        redirect: "follow",
-      };
-
-      console.log(addrequestOptions);
-
-      //API call to add a item in wishlish
-      fetch(`${network.serverip}/add-to-wishlist`, addrequestOptions)
-        .then((response) => response.json())
-        .then((result) => {
-          console.log(result);
-          if (result.success) {
-            setError(result.message);
-            setAlertType("success");
-            setOnWishlist(true);
-          } else {
-            setError(result.message);
-            setAlertType("error");
-          }
-          setOnWishlist(!onWishlist);
-        })
-        .catch((error) => {
-          setError(result.message);
-          setAlertType("error");
-          console.log("error", error);
-        });
-      setIsDisbale(false);
-    }
-  };
-
-  //set quantity, avaiableQuantity, product image and fetch wishlist on initial render
+  //set quantity, avaiableQuantity and product image on initial render
   useEffect(() => {
     setQuantity(0);
     setAvaiableQuantity(product.quantity);
-    SetProductImage(`${network.serverip}/uploads/${product?.image}`);
-    fetchWishlist();
+    // SetProductImage(`${network.serverip}/uploads/${product?.image}`);
   }, []);
-
-  //render whenever the value of wishlistItems change
-  useEffect(() => {}, [wishlistItems]);
 
   return (
     <View style={styles.container}>
@@ -222,7 +96,7 @@ const ProductDetailScreen = ({ navigation, route }) => {
       </View>
       <View style={styles.bodyContainer}>
         <View style={styles.productImageContainer}>
-          <Image source={{ uri: productImage }} style={styles.productImage} />
+          <Image source={product.image} style={styles.productImage} />
         </View>
         <CustomAlert message={error} type={alertType} />
         <View style={styles.productInfoContainer}>
@@ -230,25 +104,9 @@ const ProductDetailScreen = ({ navigation, route }) => {
             <View style={styles.productNameContaier}>
               <Text style={styles.productNameText}>{product?.title}</Text>
             </View>
-            <View style={styles.infoButtonContainer}>
-              <View style={styles.wishlistButtonContainer}>
-                <TouchableOpacity
-                  disabled={isDisable}
-                  style={styles.iconContainer}
-                  onPress={() => handleWishlistBtn()}
-                >
-                  {onWishlist == false ? (
-                    <Ionicons name="heart" size={25} color={colors.muted} />
-                  ) : (
-                    <Ionicons name="heart" size={25} color={colors.danger} />
-                  )}
-                </TouchableOpacity>
-              </View>
-            </View>
+
             <View style={styles.productDetailContainer}>
-              <View style={styles.productSizeOptionContainer}>
-                {/* <Text style={styles.secondaryTextSm}>Size:</Text> */}
-              </View>
+              <View style={styles.productSizeOptionContainer}></View>
               <View style={styles.productPriceContainer}>
                 <Text style={styles.secondaryTextSm}>Price:</Text>
                 <Text style={styles.primaryTextSm}>{product?.price}$</Text>
@@ -318,6 +176,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     padding: 20,
+    zIndex: 1,
+    backgroundColor: colors.white,
   },
   toBarText: {
     fontSize: 15,
@@ -337,7 +197,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.light,
     flexDirecion: "row",
     alignItems: "center",
-    justifyContent: "flex-end",
+    justifyContent: "center",
     padding: 0,
   },
   productInfoContainer: {
@@ -352,9 +212,9 @@ const styles = StyleSheet.create({
     elevation: 25,
   },
   productImage: {
-    height: 300,
-    width: 300,
-    resizeMode: "contain",
+    height: "125%",
+    width: "100%",
+    resizeMode: "cover",
   },
   productInfoTopContainer: {
     marginTop: 20,
@@ -412,16 +272,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-end",
-  },
-  wishlistButtonContainer: {
-    height: 50,
-    width: 80,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: colors.light,
-    borderTopLeftRadius: 10,
-    borderBottomLeftRadius: 10,
   },
   productDetailContainer: {
     padding: 5,

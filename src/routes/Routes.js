@@ -8,13 +8,13 @@ import ForgetPasswordScreen from "../screens/auth/ForgetPasswordScreen";
 import MyAccountScreen from "../screens/profile/MyAccountScreen";
 import UpdatePasswordScreen from "../screens/profile/UpdatePasswordScreen";
 import Tabs from "./tabs/Tabs";
+import ProductDetailScreen from "../screens/user/ProductDetailScreen";
 
 // import MyOrderScreen from "../screens/user/MyOrderScreen";
 
 // import CartScreen from "../screens/user/CartScreen";
 // import CheckoutScreen from "../screens/user/CheckoutScreen.js";
 // import OrderConfirmScreen from "../screens/user/OrderConfirmScreen";
-// import ProductDetailScreen from "../screens/user/ProductDetailScreen";
 
 // import MyOrderDetailScreen from "../screens/user/MyOrderDetailScreen";
 
@@ -46,12 +46,12 @@ const Routes = () => {
         <Stack.Screen name="tab" component={Tabs} />
         <Stack.Screen name="myaccount" component={MyAccountScreen} />
         <Stack.Screen name="updatepassword" component={UpdatePasswordScreen} />
+        <Stack.Screen name="productdetail" component={ProductDetailScreen} />
 
         {/* <Stack.Screen name="myorder" component={MyOrderScreen} /> */}
         {/* <Stack.Screen name="cart" component={CartScreen} /> */}
         {/* <Stack.Screen name="checkout" component={CheckoutScreen} /> */}
         {/* <Stack.Screen name="orderconfirm" component={OrderConfirmScreen} /> */}
-        {/* <Stack.Screen name="productdetail" component={ProductDetailScreen} /> */}
 
         {/* <Stack.Screen name="myorderdetail" component={MyOrderDetailScreen} /> */}
 

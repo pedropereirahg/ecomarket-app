@@ -1,10 +1,13 @@
+import image from "../assets/products/fruit.jpg";
+
 const defaultProduct = {
+  image,
   price: 0.5,
   quantity: 199,
+  description: "Close to expiry",
 };
 
 const defaultFruit = {
-  image: "",
   category: {
     _id: "fruit",
   },
@@ -12,7 +15,6 @@ const defaultFruit = {
 };
 
 const defaultVeg = {
-  image: "",
   category: {
     _id: "veg",
   },
