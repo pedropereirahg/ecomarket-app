@@ -176,13 +176,7 @@ const CheckoutScreen = ({ navigation, route }) => {
       </ScrollView>
       <View style={styles.buttomContainer}>
         {country && city && streetAddress != "" ? (
-          <CustomButton
-            text={"Submit Order"}
-            // onPress={() => navigation.replace("orderconfirm")}
-            onPress={() => {
-              handleCheckout();
-            }}
-          />
+          <CustomButton text={"Submit Order"} onPress={handleCheckout} />
         ) : (
           <CustomButton text={"Submit Order"} disabled />
         )}
@@ -198,21 +192,25 @@ const CheckoutScreen = ({ navigation, route }) => {
         <View style={styles.modelBody}>
           <View style={styles.modelAddressContainer}>
             <CustomInput
+              placeholderTextColor={colors.dark}
               value={country}
               setValue={setCountry}
               placeholder={"Enter Country"}
             />
             <CustomInput
+              placeholderTextColor={colors.dark}
               value={city}
               setValue={setCity}
               placeholder={"Enter City"}
             />
             <CustomInput
+              placeholderTextColor={colors.dark}
               value={streetAddress}
               setValue={setStreetAddress}
               placeholder={"Enter Street Address"}
             />
             <CustomInput
+              placeholderTextColor={colors.dark}
               value={zipcode}
               setValue={setZipcode}
               placeholder={"Enter ZipCode"}

@@ -13,7 +13,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 
 import { colors } from "../../constants";
-import cartIcon from "../../assets/icons/cart_beg_active.png";
 import emptyBox from "../../assets/image/empty_box.png";
 import CartProductList from "../../components/CartProductList/CartProductList";
 import CustomButton from "../../components/CustomButton";
@@ -81,9 +80,6 @@ const CartScreen = ({ navigation }) => {
         </View>
 
         <View></View>
-        <TouchableOpacity>
-          <Image source={cartIcon} />
-        </TouchableOpacity>
       </View>
       {cartproduct.length === 0 ? (
         <View style={styles.cartProductListContiainerEmpty}>
