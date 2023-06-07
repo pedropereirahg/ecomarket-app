@@ -65,15 +65,6 @@ const SignupScreen = ({ navigation }) => {
     if (password != confirmPassword) {
       return setError("password does not match");
     }
-    fetch(network.serverip + "/register", requestOptions) // API call
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-        if (result.data["email"] == email) {
-          navigation.navigate("login");
-        }
-      })
-      .catch((error) => console.log("error", setError(error.message)));
   };
   return (
     <InternetConnectionAlert
