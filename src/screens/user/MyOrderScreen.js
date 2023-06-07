@@ -68,33 +68,51 @@ const MyOrderScreen = ({ navigation, route }) => {
 
   //fetch order from server using API call
   const fetchOrders = () => {
-    var myHeaders = new Headers();
-    let token = getToken(user);
-    myHeaders.append("x-auth-token", token);
-
-    var requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-      redirect: "follow",
+    const defaultOrder = {
+      onPress: () => {},
+      orderId: "123",
+      createdAt: "",
+      status: "Processing",
+      items: [
+        {
+          price: 100,
+          quantity: 3,
+        },
+      ],
+      user: {
+        name: "John",
+        email: "john.doe@example.com",
+      },
     };
-    setIsloading(true);
-    fetch(`${network.serverip}/orders`, requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        if (result?.err === "jwt expired") {
-          logout();
-        }
-        if (result.success) {
-          setOrders(result.data);
-          setError("");
-        }
-        setIsloading(false);
-      })
-      .catch((error) => {
-        setIsloading(false);
-        setError(error.message);
-        console.log("error", error);
-      });
+    const newOrders = [defaultOrder];
+    setOrders(newOrders);
+    // var myHeaders = new Headers();
+    // let token = getToken(user);
+    // myHeaders.append("x-auth-token", token);
+
+    // var requestOptions = {
+    //   method: "GET",
+    //   headers: myHeaders,
+    //   redirect: "follow",
+    // };
+    // setIsloading(true);
+    // fetch(`${network.serverip}/orders`, requestOptions)
+    //   .then((response) => response.json())
+    //   .then((result) => {
+    //     if (result?.err === "jwt expired") {
+    //       logout();
+    //     }
+    //     if (result.success) {
+    //       setOrders(result.data);
+    //       setError("");
+    //     }
+    //     setIsloading(false);
+    //   })
+    //   .catch((error) => {
+    //     setIsloading(false);
+    //     setError(error.message);
+    //     console.log("error", error);
+    //   });
   };
 
   //convert authUser to Json object and fetch orders on initial render

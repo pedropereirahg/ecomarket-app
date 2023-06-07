@@ -18,7 +18,7 @@ const ProductCard = ({
       onPress={onPress}
     >
       <View style={styles.imageContainer}>
-        <Image source={{ uri: image }} style={styles.productImage} />
+        <Image source={image} style={styles.productImage} />
       </View>
       <View style={styles.infoContainer}>
         <View>
@@ -69,14 +69,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     display: "flex",
     flexDirection: "column",
-    justifyContent: "flex-end",
+    justifyContent: "center",
     alignItems: "center",
-    padding: 5,
-    paddingBottom: 0,
   },
   productImage: {
-    height: 120,
-    width: 120,
+    height: "100%",
+    width: "100%",
+    borderRadius: 10,
   },
   infoContainer: {
     width: "100%",

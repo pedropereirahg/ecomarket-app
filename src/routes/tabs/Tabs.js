@@ -126,7 +126,6 @@ const Tabs = ({ navigation, route }) => {
         }}
       />
       {
-        // Wishlist is ready yet!
         <Tab.Screen
           name="myorder"
           component={MyOrderScreen}

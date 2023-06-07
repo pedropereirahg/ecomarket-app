@@ -9,7 +9,16 @@ const Splash = ({ navigation }) => {
   //method to fetch the authUser data from aync storage if there is any and login the Dashboard or Home Screen according to the user type
   _retrieveData = async () => {
     try {
-      // await AsyncStorage.setItem('authUser', JSON.stringify({ userType: "USER", name: "John Doe", email: "john.doe@example.com", token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c" }))
+      await AsyncStorage.setItem(
+        "authUser",
+        JSON.stringify({
+          userType: "USER",
+          name: "John Doe",
+          email: "john.doe@example.com",
+          token:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+        })
+      );
 
       const value = await AsyncStorage.getItem("authUser");
       if (value !== null) {
