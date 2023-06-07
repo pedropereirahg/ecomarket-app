@@ -12,12 +12,13 @@ import ProgressDialog from "react-native-progress-dialog";
 import InternetConnectionAlert from "react-native-internet-connection-alert";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { colors, network } from "../../constants";
+import { colors } from "../../constants";
 import CustomInput from "../../components/CustomInput";
-import header_logo from "../../assets/logo/logo.png";
+import header_logo from "../../assets/logo/ecomarket-logo-login.png";
 import CustomButton from "../../components/CustomButton";
 import CustomAlert from "../../components/CustomAlert/CustomAlert";
 
+import user from "../../data/user";
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -35,76 +36,15 @@ const LoginScreen = ({ navigation }) => {
     }
   };
 
-  var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
-
-  var raw = JSON.stringify({
-    email: email,
-    password: password,
-  });
-
-  var requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: raw,
-    redirect: "follow",
-  };
-
   //method to validate the user credentials and navigate to Home Screen / Dashboard
-  const loginHandle = () => {
+  const loginHandle = async () => {
     setIsloading(true);
-    //[check validation] -- Start
-    // if email does not contain @ sign
-    if (email == "") {
-      setIsloading(false);
-      return setError("Please enter your email");
-    }
-    if (password == "") {
-      setIsloading(false);
-      return setError("Please enter your password");
-    }
-    if (!email.includes("@")) {
-      setIsloading(false);
-      return setError("Email is not valid");
-    }
-    // length of email must be greater than 5 characters
-    if (email.length < 6) {
-      setIsloading(false);
-      return setError("Email is too short");
-    }
-    // length of password must be greater than 5 characters
-    if (password.length < 6) {
-      setIsloading(false);
-      return setError("Password must be 6 characters long");
-    }
-    //[check validation] -- End
 
-    fetch(network.serverip + "/login", requestOptions) // API call
-      .then((response) => response.json())
-      .then((result) => {
-        if (
-          result.status == 200 ||
-          (result.status == 1 && result.success != false)
-        ) {
-          if (result?.data?.userType == "ADMIN") {
-            //check the user type if the type is ADMIN then navigate to Dashboard else navigate to User Home
-            _storeData(result.data);
-            setIsloading(false);
-            navigation.replace("dashboard", { authUser: result.data }); // naviagte to Admin Dashboard
-          } else {
-            _storeData(result.data);
-            setIsloading(false);
-            navigation.replace("tab", { user: result.data }); // naviagte to User Dashboard
-          }
-        } else {
-          setIsloading(false);
-          return setError(result.message);
-        }
-      })
-      .catch((error) => {
-        setIsloading(false);
-        console.log("error", setError(error.message));
-      });
+    await AsyncStorage.setItem("authUser", JSON.stringify(user)); // navigate to User Home screen
+
+    setIsloading(false);
+
+    navigation.replace("tab", { user });
   };
 
   return (
@@ -118,9 +58,9 @@ const LoginScreen = ({ navigation }) => {
           <StatusBar></StatusBar>
           <View style={styles.welconeContainer}>
             <View>
-              <Text style={styles.welcomeText}>Welcome to EasyBuy</Text>
+              <Text style={styles.welcomeText}>Welcome to EcoMarket</Text>
               <Text style={styles.welcomeParagraph}>
-                make your ecommerce easy
+                Where Economical Meets Ecological!
               </Text>
             </View>
             <View>
@@ -193,7 +133,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     height: "30%",
-    // padding:15
   },
   formContainer: {
     flex: 3,
@@ -206,7 +145,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     resizeMode: "contain",
-    width: 80,
+    width: 100,
   },
   welcomeText: {
     fontSize: 42,

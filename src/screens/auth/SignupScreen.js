@@ -14,7 +14,7 @@ import InternetConnectionAlert from "react-native-internet-connection-alert";
 
 import { colors, network } from "../../constants";
 import CustomInput from "../../components/CustomInput";
-import header_logo from "../../assets/logo/logo.png";
+import header_logo from "../../assets/logo/ecomarket-logo.png";
 import CustomButton from "../../components/CustomButton";
 import CustomAlert from "../../components/CustomAlert/CustomAlert";
 
@@ -65,15 +65,6 @@ const SignupScreen = ({ navigation }) => {
     if (password != confirmPassword) {
       return setError("password does not match");
     }
-    fetch(network.serverip + "/register", requestOptions) // API call
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-        if (result.data["email"] == email) {
-          navigation.navigate("login");
-        }
-      })
-      .catch((error) => console.log("error", setError(error.message)));
   };
   return (
     <InternetConnectionAlert
@@ -106,7 +97,7 @@ const SignupScreen = ({ navigation }) => {
             </View>
             <View>
               <Text style={styles.screenNameParagraph}>
-                Create your account on EasyBuy to get an access to millions of
+                Create your account on EcoMarket to get access to millions of
                 products
               </Text>
             </View>

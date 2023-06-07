@@ -16,24 +16,27 @@ import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 // TODO: Replace the following library:
 // import { SliderBox } from "react-native-image-slider-box";
-
-import { network } from "../../constants";
-import cartIcon from "../../assets/icons/cart_beg.png";
 import scanIcon from "../../assets/icons/scan_icons.png";
-import easybuylogo from "../../assets/logo/logo.png";
+import easybuylogo from "../../assets/logo/ecomarket-logo.png";
 import { colors } from "../../constants";
 import CustomIconButton from "../../components/CustomIconButton/CustomIconButton";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import category from "../../data/categories";
 import productsData from "../../data/products";
 import * as actionCreaters from "../../states/actionCreaters/actionCreaters";
+import CartButton from "../../components/CartButton";
 
 const slides = [
   require("../../assets/image/banners/banner.png"),
   require("../../assets/image/banners/banner.png"),
 ];
 
-const HomeScreen = ({ navigation, route: { params: { user }} }) => {
+const HomeScreen = ({
+  navigation,
+  route: {
+    params: { user },
+  },
+}) => {
   const [products, setProducts] = useState([]);
   const [refeshing, setRefreshing] = useState(false);
   const [error, setError] = useState("");
@@ -63,11 +66,6 @@ const HomeScreen = ({ navigation, route: { params: { user }} }) => {
     addCartItem(product);
   };
 
-  var headerOptions = {
-    method: "GET",
-    redirect: "follow",
-  };
-
   const fetchProduct = () => {
     setProducts(productsData);
   };
@@ -94,21 +92,9 @@ const HomeScreen = ({ navigation, route: { params: { user }} }) => {
         </TouchableOpacity>
         <View style={styles.topbarlogoContainer}>
           <Image source={easybuylogo} style={styles.logo} />
-          <Text style={styles.toBarText}>EasyBuy</Text>
         </View>
-        <TouchableOpacity
-          style={styles.cartIconContainer}
-          onPress={() => navigation.navigate("cart")}
-        >
-          {cartproduct.length > 0 ? (
-            <View style={styles.cartItemCountContainer}>
-              <Text style={styles.cartItemCountText}>{cartproduct.length}</Text>
-            </View>
-          ) : (
-            <></>
-          )}
-          <Image source={cartIcon} />
-        </TouchableOpacity>
+
+        <CartButton />
       </View>
       <View style={styles.bodyContainer}>
         <View style={styles.searchContainer}>
@@ -209,15 +195,16 @@ const HomeScreen = ({ navigation, route: { params: { user }} }) => {
           ) : (
             <View style={styles.productCardContainer}>
               <FlatList
+                showsHorizontalScrollIndicator={false}
+                directionalLockEnabled
                 refreshControl={
                   <RefreshControl
                     refreshing={refeshing}
                     onRefresh={handleOnRefresh}
                   />
                 }
-                showsHorizontalScrollIndicator={false}
                 initialNumToRender={5}
-                horizontal={true}
+                horizontal
                 data={products.slice(0, 4)}
                 keyExtractor={(item, index) => `${index}-${item._id}`}
                 renderItem={({ item, index }) => (
@@ -288,8 +275,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
   },
   logo: {
-    height: 30,
-    width: 30,
+    height: 64,
+    width: 64,
     resizeMode: "contain",
   },
   secondaryText: {
@@ -393,28 +380,5 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
     color: colors.muted,
     fontWeight: "600",
-  },
-  cartIconContainer: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  cartItemCountContainer: {
-    position: "absolute",
-    zIndex: 10,
-    top: -10,
-    left: 10,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: 22,
-    width: 22,
-    backgroundColor: colors.danger,
-    borderRadius: 11,
-  },
-  cartItemCountText: {
-    color: colors.white,
-    fontWeight: "bold",
-    fontSize: 10,
   },
 });
