@@ -8,10 +8,6 @@ import HomeScreen from "../../screens/user/HomeScreen";
 import UserProfileScreen from "../../screens/profile/UserProfileScreen";
 import MyOrderScreen from "../../screens/user/MyOrderScreen";
 import CategoriesScreen from "../../screens/user/CategoriesScreen";
-import HomeIconActive from "../../assets/icons/bar_home_icon_active.png";
-import HomeIcon from "../../assets/icons/bar_home_icon.png";
-import userIcon from "../../assets/icons/bar_profile_icon.png";
-import userIconActive from "../../assets/icons/bar_profile_icon_active.png";
 
 const Tab = createBottomTabNavigator();
 
@@ -33,67 +29,26 @@ const Tabs = ({ route }) => {
 
         tabBarIcon: ({ focused }) => {
           let routename = route.name;
-          if (routename == "home") {
-            return (
-              <TouchableOpacity disabled>
-                {focused == true ? (
-                  <Image
-                    source={HomeIconActive}
-                  />
-                ) : (
-                  <Image source={HomeIcon} />
-                )}
-              </TouchableOpacity>
-            );
-          } else if (routename == "categories") {
-            return (
-              <TouchableOpacity disabled>
-                {focused == true ? (
-                  <Ionicons
-                    name="ios-apps-sharp"
-                    size={29}
-                    color={colors.primary}
-                  />
-                ) : (
-                  <Ionicons
-                    name="ios-apps-sharp"
-                    size={29}
-                    color={colors.muted}
-                  />
-                )}
-              </TouchableOpacity>
-            );
-          } else if (routename == "myorder") {
-            return (
-              <TouchableOpacity disabled>
-                {focused == true ? (
-                  <Ionicons
-                    name="cart-outline"
-                    size={29}
-                    color={colors.primary}
-                  />
-                ) : (
-                  <Ionicons
-                    name="cart-outline"
-                    size={29}
-                    color={colors.muted}
-                  />
-                )}
-              </TouchableOpacity>
-            );
-          } else if (routename == "user") {
-            return (
-              <TouchableOpacity disabled>
-                {focused == true ? (
-                  <Image
-                    source={userIconActive}
-                  />
-                ) : (
-                  <Image source={userIcon} />
-                )}
-              </TouchableOpacity>
-            );
+          let icon;
+          if (routename === "home") {
+            icon = "home-outline";
+          } else if (routename === "categories") {
+            icon = "apps-outline";
+          } else if (routename === "myorder") {
+            icon = "cart-outline";
+          } else if (routename === "user") {
+            icon = "person-outline";
           }
+
+          return (
+            <TouchableOpacity disabled>
+              <Ionicons
+                name={icon}
+                size={28}
+                color={focused ? colors.primary : colors.muted}
+              />
+            </TouchableOpacity>
+          );
         },
         tabBarStyle: {
           borderTopLeftRadius: 20,
