@@ -196,6 +196,7 @@ const HomeScreen = ({
           ) : (
             <View style={styles.productCardContainer}>
               <FlatList
+                directionalLockEnabled
                 refreshControl={
                   <RefreshControl
                     refreshing={refeshing}
