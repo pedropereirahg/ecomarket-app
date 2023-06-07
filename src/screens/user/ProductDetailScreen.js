@@ -11,23 +11,27 @@ import { Ionicons } from "@expo/vector-icons";
 import cartIcon from "../../assets/icons/cart_beg.png";
 import { colors, network } from "../../constants";
 import CustomButton from "../../components/CustomButton";
-// import { useSelector, useDispatch } from "react-redux";
-// import { bindActionCreators } from "redux";
+import { useSelector, useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
 import * as actionCreaters from "../../states/actionCreaters/actionCreaters";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CustomAlert from "../../components/CustomAlert/CustomAlert";
 
-const ProductDetailScreen = ({ navigation, route }) => {
-  const { product } = route.params;
-  // const cartproduct = useSelector((state) => state.product);
-  const cartproduct = [];
-  // const dispatch = useDispatch();
+const ProductDetailScreen = ({ navigation, route: { params: { product } } }) => {
+  const [availableQuantity, setAvailableQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(0);
+  const [productImage, SetProductImage] = useState(" ");
+  const [error, setError] = useState("");
+  const [isDisable, setIsDisbale] = useState(true);
+  const [alertType, setAlertType] = useState("error");
+  const cartproduct = useSelector((state) => state.product);
+  const dispatch = useDispatch();
 
-  // const { addCartItem } = bindActionCreators(actionCreaters, dispatch);
+  const { addCartItem } = bindActionCreators(actionCreaters, dispatch);
 
   //method to add item to cart(redux)
   const handleAddToCat = (item) => {
-    // addCartItem(item);
+    addCartItem(item);
   };
 
   //remove the authUser from async storage and navigate to login
@@ -35,16 +39,10 @@ const ProductDetailScreen = ({ navigation, route }) => {
     await AsyncStorage.removeItem("authUser");
     navigation.replace("login");
   };
-  const [avaiableQuantity, setAvaiableQuantity] = useState(0);
-  const [quantity, setQuantity] = useState(0);
-  const [productImage, SetProductImage] = useState(" ");
-  const [error, setError] = useState("");
-  const [isDisable, setIsDisbale] = useState(true);
-  const [alertType, setAlertType] = useState("error");
 
   //method to increase the product quantity
   const handleIncreaseButton = (quantity) => {
-    if (avaiableQuantity > quantity) {
+    if (availableQuantity > quantity) {
       setQuantity(quantity + 1);
     }
   };
@@ -56,10 +54,10 @@ const ProductDetailScreen = ({ navigation, route }) => {
     }
   };
 
-  //set quantity, avaiableQuantity and product image on initial render
+  //set quantity, availableQuantity and product image on initial render
   useEffect(() => {
     setQuantity(0);
-    setAvaiableQuantity(product.quantity);
+    setAvailableQuantity(product.quantity);
     // SetProductImage(`${network.serverip}/uploads/${product?.image}`);
   }, []);
 
@@ -140,7 +138,7 @@ const ProductDetailScreen = ({ navigation, route }) => {
               </View>
             </View>
             <View style={styles.productButtonContainer}>
-              {avaiableQuantity > 0 ? (
+              {availableQuantity > 0 ? (
                 <CustomButton
                   text={"Add to Cart"}
                   onPress={() => {

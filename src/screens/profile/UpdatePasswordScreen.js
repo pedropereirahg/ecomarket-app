@@ -1,6 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
+
 import { colors, network } from "../../constants";
 import CustomInput from "../../components/CustomInput";
 import CustomButton from "../../components/CustomButton";
@@ -9,16 +10,16 @@ import CustomAlert from "../../components/CustomAlert/CustomAlert";
 const UpdatePasswordScreen = ({ navigation, route }) => {
   const { userID } = route.params;
   const [error, setError] = useState("");
-  const [currnetPassword, setCurrentPassword] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setCconfirmPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [alertType, setAlertType] = useState("error");
 
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
   var raw = JSON.stringify({
-    password: currnetPassword,
+    password: currentPassword,
     newPassword: newPassword,
   });
 
@@ -31,7 +32,7 @@ const UpdatePasswordScreen = ({ navigation, route }) => {
 
   // method to update the password by the check the current password
   const updatePasswordHandle = () => {
-    if (currnetPassword == newPassword) {
+    if (currentPassword == newPassword) {
       setError("You are not allowed to set the previous used password");
     } else if (newPassword != confirmPassword) {
       setError("Password not matched");
@@ -82,7 +83,7 @@ const UpdatePasswordScreen = ({ navigation, route }) => {
       <View style={styles.formContainer}>
         <CustomAlert message={error} type={alertType} />
         <CustomInput
-          value={currnetPassword}
+          value={currentPassword}
           setValue={setCurrentPassword}
           placeholder={"Current Password"}
           secureTextEntry={true}
@@ -95,7 +96,7 @@ const UpdatePasswordScreen = ({ navigation, route }) => {
         />
         <CustomInput
           value={confirmPassword}
-          setValue={setCconfirmPassword}
+          setValue={setConfirmPassword}
           placeholder={"Confirm New Password"}
           secureTextEntry={true}
         />

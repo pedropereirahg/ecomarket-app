@@ -4,21 +4,18 @@ const reducer = (state = [], action) => {
   let done = false;
   switch (action.type) {
     case actions.CART_ADD:
-      state.map((item, index) => {
+      const newState = state.map(item => {
         if (item._id === action.payload._id) {
           done = true;
-          if (item.avaiableQuantity > item.quantity) {
-            state[index].quantity = state[index].quantity + 1;
-          } else {
-            console.log("out of stock");
+          if (item.availableQuantity > item.quantity) {
+            return { ...item, quantity: item.quantity + 1}
           }
-
-          return state;
         }
+        return item;
       });
       if (!done) {
         return [
-          ...state,
+          ...newState,
           {
             _id: action.payload._id,
             category: action.payload.category,
@@ -29,36 +26,38 @@ const reducer = (state = [], action) => {
             sku: action.payload.sku,
             title: action.payload.title,
             updatedAt: action.payload.updatedAt,
-            avaiableQuantity: action.payload.quantity,
+            availableQuantity: action.payload.quantity,
             quantity: 1,
           },
         ];
       }
+      return newState;
 
     case actions.CART_REMOVE:
       return state.filter((item) => item._id !== action.payload);
 
     case actions.INCREASE_CART_ITEM_QUANTITY:
       if (action.payload.type === "increase") {
-        state.map((item, index) => {
+        return state.map(item => {
           if (item._id === action.payload.id) {
-            return (state[index].quantity = state[index].quantity + 1);
+            return { ...item, quantity: item.quantity + 1 }; 
           }
+          return item;
         });
       }
 
     case actions.DECREASE_CART_ITEM_QUANTITY:
       if (action.payload.type === "decrease") {
-        state.map((item, index) => {
+        return state.map(item => {
           if (item._id === action.payload.id) {
-            return (state[index].quantity = state[index].quantity - 1);
+            return { ...item, quantity: item.quantity - 1 };
           }
+          return item;
         });
       }
     case actions.EMPTY_CART:
       if (action.payload === "empty") {
-        state.splice(0, state.length);
-        return state;
+        return [];
       }
 
     default:

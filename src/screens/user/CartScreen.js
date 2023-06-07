@@ -8,15 +8,16 @@ import {
   ScrollView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { Ionicons } from "@expo/vector-icons";
-import cartIcon from "../../assets/icons/cart_beg_active.png";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { useSelector, useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+
 import { colors, network } from "../../constants";
+import cartIcon from "../../assets/icons/cart_beg_active.png";
+import emptyBox from "../../assets/image/empty_box.png";
 import CartProductList from "../../components/CartProductList/CartProductList";
 import CustomButton from "../../components/CustomButton";
-import { MaterialIcons } from "@expo/vector-icons";
-import { useSelector, useDispatch } from "react-redux";
 import * as actionCreaters from "../../states/actionCreaters/actionCreaters";
-import { bindActionCreators } from "redux";
 
 const CartScreen = ({ navigation }) => {
   const cartproduct = useSelector((state) => state.product);
@@ -33,9 +34,9 @@ const CartScreen = ({ navigation }) => {
   };
 
   //method to increase the quantity of the item in(cart) redux
-  const increaseQuantity = (id, quantity, avaiableQuantity) => {
-    if (avaiableQuantity > quantity) {
-      increaseCartItemQuantity({ id: id, type: "increase" });
+  const increaseQuantity = (id, quantity, availableQuantity) => {
+    if (availableQuantity > quantity) {
+      increaseCartItemQuantity({ id, type: "increase" });
       setRefresh(!refresh);
     }
   };
@@ -43,7 +44,7 @@ const CartScreen = ({ navigation }) => {
   //method to decrease the quantity of the item in(cart) redux
   const decreaseQuantity = (id, quantity) => {
     if (quantity > 1) {
-      decreaseCartItemQuantity({ id: id, type: "decrease" });
+      decreaseCartItemQuantity({ id, type: "decrease" });
       setRefresh(!refresh);
     }
   };
@@ -86,11 +87,11 @@ const CartScreen = ({ navigation }) => {
       </View>
       {cartproduct.length === 0 ? (
         <View style={styles.cartProductListContiainerEmpty}>
-          {/* <Image
-            source={CartEmpty}
-            style={{ height: 400, resizeMode: "contain" }}
-          /> */}
-          <Text style={styles.secondaryTextSmItalic}>"Cart is empty"</Text>
+          <Image
+            source={emptyBox}
+            style={{ height: 100, resizeMode: "contain" }}
+          />
+          <Text style={styles.secondaryTextSmItalic}>Cart is empty</Text>
         </View>
       ) : (
         <ScrollView style={styles.cartProductListContiainer}>
@@ -98,7 +99,7 @@ const CartScreen = ({ navigation }) => {
             <CartProductList
               key={index}
               index={index}
-              image={`${network.serverip}/uploads/${item.image}`}
+              image={item.image}
               title={item.title}
               price={item.price}
               quantity={item.quantity}
@@ -106,7 +107,7 @@ const CartScreen = ({ navigation }) => {
                 increaseQuantity(
                   item._id,
                   item.quantity,
-                  item.avaiableQuantity
+                  item.availableQuantity
                 );
               }}
               onPressDecrement={() => {

@@ -1,4 +1,4 @@
-import { StyleSheet, Image, TouchableOpacity } from "react-native";
+import { Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
@@ -15,7 +15,7 @@ import userIconActive from "../../assets/icons/bar_profile_icon_active.png";
 
 const Tab = createBottomTabNavigator();
 
-const Tabs = ({ navigation, route }) => {
+const Tabs = ({ route }) => {
   const { user } = route.params;
   return (
     <Tab.Navigator
@@ -39,10 +39,9 @@ const Tabs = ({ navigation, route }) => {
                 {focused == true ? (
                   <Image
                     source={HomeIconActive}
-                    style={StyleSheet.tabIconStyle}
                   />
                 ) : (
-                  <Image source={HomeIcon} style={StyleSheet.tabIconStyle} />
+                  <Image source={HomeIcon} />
                 )}
               </TouchableOpacity>
             );
@@ -88,10 +87,9 @@ const Tabs = ({ navigation, route }) => {
                 {focused == true ? (
                   <Image
                     source={userIconActive}
-                    style={StyleSheet.tabIconStyle}
                   />
                 ) : (
-                  <Image source={userIcon} style={StyleSheet.tabIconStyle} />
+                  <Image source={userIcon} />
                 )}
               </TouchableOpacity>
             );
@@ -142,10 +140,3 @@ const Tabs = ({ navigation, route }) => {
 };
 
 export default Tabs;
-
-const styles = StyleSheet.create({
-  tabIconStyle: {
-    width: 10,
-    height: 10,
-  },
-});

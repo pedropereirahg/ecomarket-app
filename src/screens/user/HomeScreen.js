@@ -12,40 +12,37 @@ import {
 import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import SearchableDropdown from "react-native-searchable-dropdown";
+import { useSelector, useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
 // TODO: Replace the following library:
 // import { SliderBox } from "react-native-image-slider-box";
-// import { useSelector, useDispatch } from "react-redux";
-// import { bindActionCreators } from "redux";
 
+import { network } from "../../constants";
 import cartIcon from "../../assets/icons/cart_beg.png";
 import scanIcon from "../../assets/icons/scan_icons.png";
 import easybuylogo from "../../assets/logo/logo.png";
 import { colors } from "../../constants";
 import CustomIconButton from "../../components/CustomIconButton/CustomIconButton";
 import ProductCard from "../../components/ProductCard/ProductCard";
-import { network } from "../../constants";
 import category from "../../data/categories";
 import productsData from "../../data/products";
-// import * as actionCreaters from "../../states/actionCreaters/actionCreaters";
+import * as actionCreaters from "../../states/actionCreaters/actionCreaters";
 
 const slides = [
   require("../../assets/image/banners/banner.png"),
   require("../../assets/image/banners/banner.png"),
 ];
 
-const HomeScreen = ({ navigation, route }) => {
-  const cartproduct = [];
-  // const cartproduct = useSelector((state) => state.product);
-  // const dispatch = useDispatch();
-
-  // const { addCartItem } = bindActionCreators(actionCreaters, dispatch);
-
-  const { user } = route.params;
+const HomeScreen = ({ navigation, route: { params: { user }} }) => {
   const [products, setProducts] = useState([]);
   const [refeshing, setRefreshing] = useState(false);
   const [error, setError] = useState("");
   const [userInfo, setUserInfo] = useState({});
   const [searchItems, setSearchItems] = useState([]);
+  const cartproduct = useSelector((state) => state.product);
+  const dispatch = useDispatch();
+
+  const { addCartItem } = bindActionCreators(actionCreaters, dispatch);
 
   //method to convert the authUser to json object
   const convertToJSON = (obj) => {
@@ -63,7 +60,7 @@ const HomeScreen = ({ navigation, route }) => {
 
   //method to add to cart (redux)
   const handleAddToCat = (product) => {
-    // addCartItem(product);
+    addCartItem(product);
   };
 
   var headerOptions = {
@@ -136,6 +133,7 @@ const HomeScreen = ({ navigation, route }) => {
                 paddingLeft: 10,
                 borderWidth: 0,
                 backgroundColor: colors.white,
+                height: 40,
               }}
               itemStyle={{
                 padding: 10,
@@ -221,10 +219,10 @@ const HomeScreen = ({ navigation, route }) => {
                 initialNumToRender={5}
                 horizontal={true}
                 data={products.slice(0, 4)}
-                keyExtractor={(item) => item._id}
+                keyExtractor={(item, index) => `${index}-${item._id}`}
                 renderItem={({ item, index }) => (
                   <View
-                    key={item._id}
+                    key={`${index}-${item._id}`}
                     style={{ marginLeft: 5, marginBottom: 10, marginRight: 5 }}
                   >
                     <ProductCard
@@ -252,7 +250,6 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    flexDirecion: "row",
     backgroundColor: colors.light,
     alignItems: "center",
     justifyContent: "flex-start",
@@ -279,7 +276,6 @@ const styles = StyleSheet.create({
   },
   bodyContainer: {
     width: "100%",
-    flexDirecion: "row",
 
     paddingBottom: 0,
     flex: 1,

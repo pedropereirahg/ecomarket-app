@@ -7,15 +7,16 @@ import {
   Alert,
 } from "react-native";
 import React, { useState } from "react";
-import UserProfileCard from "../../components/UserProfileCard/UserProfileCard";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
+
+import UserProfileCard from "../../components/UserProfileCard/UserProfileCard";
 import OptionList from "../../components/OptionList/OptionList";
 import { network } from "../../constants";
 
 const MyAccountScreen = ({ navigation, route }) => {
-  const [showBox, setShowBox] = useState(true);
-  const [error, setError] = useState("");
+  const [, setShowBox] = useState(true);
+  const [, setError] = useState("");
   const { user } = route.params;
   const userID = user["_id"];
 
