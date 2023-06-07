@@ -17,7 +17,7 @@ import { bindActionCreators } from "redux";
 // TODO: Replace the following library:
 // import { SliderBox } from "react-native-image-slider-box";
 import scanIcon from "../../assets/icons/scan_icons.png";
-import easybuylogo from "../../assets/logo/logo.png";
+import easybuylogo from "../../assets/logo/ecomarket-logo.png";
 import { colors } from "../../constants";
 import CustomIconButton from "../../components/CustomIconButton/CustomIconButton";
 import ProductCard from "../../components/ProductCard/ProductCard";
@@ -92,7 +92,6 @@ const HomeScreen = ({
         </TouchableOpacity>
         <View style={styles.topbarlogoContainer}>
           <Image source={easybuylogo} style={styles.logo} />
-          <Text style={styles.toBarText}>EcoMarket</Text>
         </View>
 
         <CartButton />
@@ -196,6 +195,7 @@ const HomeScreen = ({
           ) : (
             <View style={styles.productCardContainer}>
               <FlatList
+                showsHorizontalScrollIndicator={false}
                 directionalLockEnabled
                 refreshControl={
                   <RefreshControl
@@ -203,9 +203,8 @@ const HomeScreen = ({
                     onRefresh={handleOnRefresh}
                   />
                 }
-                showsHorizontalScrollIndicator={false}
                 initialNumToRender={5}
-                horizontal={true}
+                horizontal
                 data={products.slice(0, 4)}
                 keyExtractor={(item, index) => `${index}-${item._id}`}
                 renderItem={({ item, index }) => (
@@ -276,8 +275,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
   },
   logo: {
-    height: 30,
-    width: 30,
+    height: 64,
+    width: 64,
     resizeMode: "contain",
   },
   secondaryText: {

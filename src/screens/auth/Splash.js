@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { colors } from "../../constants";
-import logo from "../../assets/logo/logo_white.png";
+import logo from "../../assets/logo/ecomarket-logo-white.png";
 
 const Splash = ({ navigation }) => {
   //method to fetch the authUser data from aync storage if there is any and login the Dashboard or Home Screen according to the user type
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     resizeMode: "contain",
-    width: 80,
-    height: 80,
+    width: 256,
+    height: 256,
   },
 });
