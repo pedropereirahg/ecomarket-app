@@ -114,7 +114,7 @@ const Tabs = ({ navigation, route }) => {
           },
         }}
       />
-      {/* <Tab.Screen
+      <Tab.Screen
         name="categories"
         component={CategoriesScreen}
         initialParams={{ user: user }}
@@ -124,7 +124,7 @@ const Tabs = ({ navigation, route }) => {
             position: "absolute",
           },
         }}
-      /> */}
+      />
       {
         <Tab.Screen
           name="myorder"
