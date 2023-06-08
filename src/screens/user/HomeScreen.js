@@ -15,7 +15,7 @@ import SearchableDropdown from "react-native-searchable-dropdown";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 // TODO: Replace the following library:
-import { SliderBox } from "react-native-image-slider-box";
+// import { SliderBox } from "react-native-image-slider-box";
 import scanIcon from "../../assets/icons/scan_icons.png";
 import easybuylogo from "../../assets/logo/ecomarket-logo.png";
 import { colors } from "../../constants";
@@ -148,7 +148,7 @@ const HomeScreen = ({
           </View>
         </View>
         <ScrollView nestedScrollEnabled={true}>
-          <View style={styles.promotiomSliderContainer}>
+          {/* <View style={styles.promotiomSliderContainer}>
             <SliderBox
               images={slides}
               sliderBoxHeight={140}
@@ -157,7 +157,7 @@ const HomeScreen = ({
               paginationBoxVerticalPadding={10}
               autoplayInterval={6000}
             />
-          </View>
+          </View> */}
           <View style={styles.primaryTextContainer}>
             <Text style={styles.primaryText}>Categories</Text>
           </View>
