@@ -11,18 +11,27 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.pedrogoncalvesk.ecomarketapp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo/ecomarket-logo.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.pedrogoncalvesk.ecomarketapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "6ab9287c-da9e-47fa-a435-05a144b6f16a"
+      }
     }
   }
 }
