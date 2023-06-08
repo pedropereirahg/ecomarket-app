@@ -1,6 +1,5 @@
 import { StyleSheet, Image, View } from "react-native";
 import React, { useEffect } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { colors } from "../../constants";
 import logo from "../../assets/logo/ecomarket-logo-white.png";

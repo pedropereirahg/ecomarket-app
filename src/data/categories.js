@@ -9,6 +9,11 @@ const category = [
     title: "Vegetables",
     image: require("../assets/icons/garments.png"),
   },
+  {
+    _id: "milk",
+    title: "Milk",
+    image: require("../assets/icons/cosmetics.png"),
+  },
 ];
 
 export default category;

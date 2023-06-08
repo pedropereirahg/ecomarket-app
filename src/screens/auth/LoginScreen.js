@@ -29,7 +29,7 @@ const LoginScreen = ({ navigation }) => {
   //method to store the authUser to aync storage
   _storeData = async (user) => {
     try {
-      AsyncStorage.setItem("authUser", JSON.stringify(user));
+      await AsyncStorage.setItem("authUser", JSON.stringify(user));
     } catch (error) {
       console.log(error);
       setError(error);
@@ -56,11 +56,11 @@ const LoginScreen = ({ navigation }) => {
         <ScrollView style={{ flex: 1, width: "100%" }}>
           <ProgressDialog visible={isloading} label={"Login ..."} />
           <StatusBar></StatusBar>
-          <View style={styles.welconeContainer}>
+          <View style={styles.welcomeContainer}>
             <View>
               <Text style={styles.welcomeText}>Welcome to EcoMarket</Text>
               <Text style={styles.welcomeParagraph}>
-                Where Economical Meets Ecological!
+                Where economical meets Ecological!
               </Text>
             </View>
             <View>
@@ -119,14 +119,13 @@ export default LoginScreen;
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    flexDirecion: "row",
     backgroundColor: colors.light,
     alignItems: "center",
     justifyContent: "center",
     padding: 20,
     flex: 1,
   },
-  welconeContainer: {
+  welcomeContainer: {
     width: "100%",
     display: "flex",
     flexDirection: "row",
@@ -140,7 +139,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     display: "flex",
     width: "100%",
-    flexDirecion: "row",
     padding: 5,
   },
   logo: {
@@ -148,13 +146,13 @@ const styles = StyleSheet.create({
     width: 100,
   },
   welcomeText: {
-    fontSize: 42,
+    fontSize: 32,
     fontWeight: "bold",
     color: colors.muted,
   },
   welcomeParagraph: {
-    fontSize: 15,
-    fontWeight: "500",
+    fontSize: 16,
+    fontWeight: "300",
     color: colors.primary_shadow,
   },
   forgetPasswordContainer: {
