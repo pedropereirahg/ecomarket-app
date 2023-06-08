@@ -1,3 +1,4 @@
+- Link do Pitch - https://www.youtube.com/watch?v=tO-b7ir7dSU
 - Baixar o aplicativo Expo Go no Android ou IOS.
 - Acessar pelo celular os links abaixo
 IOS: exp://u.expo.dev/update/2cdc77a9-bf7c-41bf-826e-863622f8cec3
